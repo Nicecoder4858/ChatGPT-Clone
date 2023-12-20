@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT</title>
+        <!-- boxicons link -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+       @font-face {
+        font-family: 'new4';
+        src: url(fonts/new4.ttf),url(fonts/new2.ttf),url(fonts/new3.ttf),url(fonts/new.ttf),url(fonts/new5.ttf),;
+       }
+        *{
+            padding:0;
+            margin: 0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+        ::selection{
+            background: none;
+        }
+        .main{
+            height:100vh;
+            width:100vw;
+        }
+        .main .header{
+            height:75px; 
+            width:100%;
+			display:flex;
+			align-items:center;
+			justify-content:flex-start;
+			padding:10px 18px;
+            position:relative;
+        }
+        .header #pencil{
+            font-size:1.56vw;
+            border:1px solid rgba(184, 184, 184, 0.671);
+            border-radius:10px;
+            height:40px;
+            display:flex;
+            align-items:center;
+            justify-content: center;;
+            width:40px;
+            margin-right:20px;
+            margin-top:-14px;
+            text-decoration: none;
+            color:#000;
+            transition:all 0.3s ease;
+        }
+        .header #pencil:hover{
+            background:rgba(216, 215, 215, 0.39);
+        }
+        .header .chat {
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            height:50px;
+            border-radius:15px;
+            padding:10px 20px  0px 20px; ;
+            position:absolute;
+            left:5%;
+            bottom:25%;
+            transition:all 0.3s ease;
+        }
+        .header .chat:hover{
+            background:rgba(216, 215, 215, 0.39);
+        }
+        .header .chat h1{
+            font-size:1.3vw;
+            font-weight:500;
+            margin-top:-10px;
+            font-family:'new4',sans-serif;
+            color:#000;
+        }
+        .header .chat span{
+            font-size:1.39vw;
+            font-weight:500;
+            opacity:0.6;
+            margin-top:-10px;
+            margin-left:5px;
+            font-family:'new4',sans-serif;
+            color:#000;
+        }
+        .header .chat #down{
+            text-decoration:none;
+            color: rgba(36, 35, 35, 0.671);
+            margin-left:5px;
+        }
+        /* content box */
+        .main .content{
+            display:flex;
+            align-items: center;
+            justify-content:center;
+            flex-direction: column;
+        }
+        .content img{
+            height: 52px;
+            width:100px;
+        }
+        .content .imgdiv{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-top:60px;
+            height:75px;
+            width:75px;
+            border:2px solid rgba(216, 215, 215, 0.39); 
+            border-radius:50%;
+        }
+        .content h1{
+            font-family:'Poppins',sans-serif;
+            font-size:1.58vw;
+            margin-top:10px;
+        }
+        .main .boxes{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .boxes {
+            display:flex;
+            align-items:center;
+            justify-content: center;
+            flex-direction:column;
+            height:50px;
+        }
+        .boxes .box1{
+            padding:10px 20px 10px 20px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            width:800px;
+            cursor:pointer;
+        }
+        .box1 div{
+            border:1px solid rgb(215, 216, 216); /*;rgba(215, 216, 216, 0.39);*/
+            width:500px;
+            margin-top:390px;
+            margin-right:20px;
+            padding: 10px 50px 10px 15px;
+            border-radius:10px;
+            position:relative;
+        }
+        .box1 div p{
+            font-size:1vw;
+            font-weight:600;
+            /* font-family:'new4',sans-serif; */
+        }
+        /* span section  */
+        .alag{
+            font-size:small;
+            font-weight:500;
+            opacity:0.5;
+        }
+        .boxes .box2{
+            padding:10px 20px 10px 20px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            width:800px;
+            cursor:pointer;
+        }
+        .box2 div{
+            border:1px solid rgb(215, 216, 216);/*;rgba(215, 216, 216, 0.39);*/
+            width:500px;
+            margin-right:20px;
+            padding: 10px 50px 10px 15px;
+            border-radius:10px;
+            position:relative;
+        }
+        .box2 div:hover{
+            background:rgb(215, 216, 216);
+        }
+        .box1 div:hover{
+            background:rgb(215, 216, 216);
+            cursor:pointer;
+        }
+        .box2 div p{
+            font-size:1vw;
+            font-weight:600;
+        }
+        .box1 div a {
+            color:#fff;
+            position:absolute;
+            right:20px;
+            top:20px;
+            font-size:20px;
+            transition:all 0.3s ease;
+        }
+        .box1 div:hover a{
+            color:#000;
+        }
+        .box2 div a {
+            color:#fff;
+            position:absolute;
+            right:20px;
+            top:20px;
+            font-size:20px;
+            transition:all 0.3s ease;
+        }
+        .box2 div:hover a{
+            color:#000;
+        }
+        .message{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            position:relative;
+            margin-top:-80px;
+
+        }
+        .message input{
+            height:50px;
+            width:760px;
+            margin-bottom:10px;
+            border-radius:15px;
+            border:none;
+            border:1px solid rgb(215, 216, 216);
+        }
+        .message input:focus{
+            outline:none;
+            padding-left:15px;
+        }
+        .message input::placeholder{
+            padding-left:10px;
+            font-size:15px;
+        }
+        .message a{
+            border-radius:15px;
+            width:40px;
+            height:40px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            font-size:30px;
+            position:absolute;
+            right:310px;
+            bottom:15px;
+            transition:all 0.3s ease;
+            color:black;
+            opacity: 0.5;
+        }
+        .message a:hover{
+            background:rgb(161, 159, 159);
+            cursor:pointer;
+            opacity:1;
+        }
+        .about{
+            display:flex;
+            align-items: center;
+            justify-content:center;
+            font-size:11px;
+            font-weight:600;
+            opacity:0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <a href="#" id="pencil"><i class="bx bx-edit"></i></a>
+            <div class="chat">
+                <h1>ChatGPT</h1><span>3.5</span><a href="#" id="down"><i class="bx bxs-chevron-down"></i></a>
+            </div>
+        </div>
+        <div class="content">
+                <div class="imgdiv">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png">
+                </div>
+                <h1>How can I help you today?</h1>
+        </div>
+        <div class="boxes">
+            <div class="box1">
+                <div>
+                    <p>Create a personal Webpage for me</p>
+                    <span class="alag">after asking me three questions</span>
+                    <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+                </div>
+                <div>
+                    <p>Write a text</p>
+                    <span class="alag">inviting my neighbors to a barbecue</span>
+                    <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+                </div>
+            </div>
+            <div class="box2">
+                <div>
+                    <p>Compare Marketing strategies</p>
+                    <span class="alag">for sunglasses for Gen Z and Millennials</span>
+                    <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+                </div>
+                <div>
+                    <p>Design a database schema</p>
+                    <span class="alag">for an online merch store</span>
+                    <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="message">
+        <input type="text" placeholder="Message ChatGPT...">
+        <a><i class='bx bxs-up-arrow-circle'></i></a>
+    </div>
+    <div class="about">
+        <p> ChatGPT can make mistakes. Consider checking important information.</p>
+    </div>
+
+
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body></html>
